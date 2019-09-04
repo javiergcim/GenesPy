@@ -27,7 +27,7 @@ def mutate_swap(task, individual, args):
     Args:
         task (Task): Una referencia a la tarea asociada al elemento (no usada).
         individual (Individual): Un individuo.
-        args (dict): Un arreglo con los parámetros propios de este método. *mp'*
+        args (dict): Un arreglo con los parámetros propios de este método. *mp*
         como un número entre 0.0 y 1.0, que representa la probabilidad de que un
         elemento de $genome sea escogido para ser intercambiado por otro.
 
@@ -60,9 +60,9 @@ def mutate_flip(task, individual, args):
     Args:
         task (Task): Una referencia a la tarea asociada al elemento (no usada).
         individual (Individual): Un individuo.
-        args (dict): Un arreglo con los parámetros propios de este método. *mp'*
+        args (dict): Un arreglo con los parámetros propios de este método. *mp*
         como un número entre 0.0 y 1.0, que representa la probabilidad de que un
-        elemento de $genome sea escogido para ser intercambiado por otro.
+        elemento de $genome sea escogido para ser alterado.
 
     """
 
@@ -70,7 +70,7 @@ def mutate_flip(task, individual, args):
     gen = individual.get_raw_genome()
     max_i = len(gen)
 
-    j = geometric_dist(mp) - 1  # Primer j (y nodo a intercambiar)
+    j = geometric_dist(mp) - 1  # Primer j (y nodo a alterar)
     while j < max_i:
         if gen[j] == 48:
             gen[j] = 49

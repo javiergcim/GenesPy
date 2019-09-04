@@ -231,8 +231,8 @@ def crossover_scx(task, ind_a, ind_b, args):
 
 
 def crossover_pseudoscx(task, ind_a, ind_b, args):
-    """ Hace un cruzamiento de genomas que codifican una permutación de destinos
-    para el problema del agente viajero, inspirado en SCX.
+    """ Hace un cruzamiento de genomas que codifican una permutación, inspirado
+    en SCX.
 
     Esta versión no considera una matriz de costos. Los nodos son insertados
     siguiendo un esquema determinista.

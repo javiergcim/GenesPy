@@ -18,17 +18,18 @@ from .utils import dec_to_bin
 
 
 class BinaryInd(Individual):
-    """ Clase base para los individuos.
+    """ Clase para individuos con genoma binario.
 
-        Attributes:
-            _genome (byterray): El genoma del individuo.
-            _var_bits (tuple): Arreglo que indica cuantos bits usa cada variable
-                en el genoma.
-            _sign_bits (tuple): Arreglo que indica que variables poseen bit de
-                signo.
-            _precalc (tuple): Un arreglo que almacena factores que ajustan el
-                valor entero codificado en cada variable a su valor flotante
-                correcto.
+    Attributes:
+        _var_bits (tuple): Arreglo que indica cuantos bits usa cada variable
+            en el genoma.
+        _sign_bits (tuple): Arreglo que indica que variables poseen bit de
+            signo.
+        _precalc (tuple): Un arreglo que almacena factores que ajustan el
+            valor entero codificado en cada variable a su valor flotante
+            correcto.
+        _struct (tuple): Un arreglo de arreglos que indican la forma en que se
+            codifica cada variable almacenado en el genoma.
 
     """
 
@@ -51,7 +52,7 @@ class BinaryInd(Individual):
             precalc (tuple): Un arreglo que almacena factores que ajustan el
                 valor entero codificado en cada variable a su valor flotante
                 correcto.
-            data (object): Una objeto aritrario.
+            data (object): Un objeto arbitrario.
             fitness (list): Un arreglo con el fitness.
 
         """
@@ -60,7 +61,6 @@ class BinaryInd(Individual):
         self._sign_bits = sign_bits
         self._precalc = precalc
         self._struct = struct
-        self._n_vars = len(struct)
 
         super().__init__(genome, data, fitness)
 
