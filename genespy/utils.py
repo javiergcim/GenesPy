@@ -69,13 +69,15 @@ def dec_to_bin(num, sign, i_dig, d_dig):
 
     Args:
         num (float): El número a convertir.
-        sign (bool): Indica si debe usarse bit de signo
+        sign (bool): Indica si debe usarse bit de signo.
         i_dig (int): Cantidad de digitos para la parte entera.
         d_dig (int): Cantidad de digitos para la mantisa.
 
     Returns:
+        bytearray: Un arreglo con el número codificado en binario.
 
     """
+
     if num >= 0:
         if sign:
             binary = bytearray(b'0')
@@ -214,4 +216,3 @@ def travel_cost(task, genome):
         cost += matrix[genome[-1]][data['start']]
 
     return cost
-
