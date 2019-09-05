@@ -58,7 +58,7 @@ def opti_func():
                           verbose)
 
     print(sol)
-    print('Amigable: ', sol.get_genome())
+    print('Friendly genome:', sol.get_genome())
 
 
 opti_func()
