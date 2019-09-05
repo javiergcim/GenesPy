@@ -1,3 +1,5 @@
+# Un script de ejemplo
+
 from genespy.task import Task
 from genespy.mutators import mutate_flip
 from genespy.crossovers import crossover_one_point
