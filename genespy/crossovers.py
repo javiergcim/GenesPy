@@ -224,8 +224,10 @@ def crossover_scx(task, ind_a, ind_b, args):
     # Se instancian los hijos
     a = ind_a.copy()
     a.set_genome_from_raw(son_l_gen)
+    a.set_fitness(None)
     b = ind_b.copy()
-    a.set_genome_from_raw(son_r_gen)
+    b.set_genome_from_raw(son_r_gen)
+    b.set_fitness(None)
 
     return a, b
 
@@ -386,8 +388,10 @@ def crossover_pseudoscx(task, ind_a, ind_b, args):
     # Se instancian los hijos
     a = ind_a.copy()
     a.set_genome_from_raw(son_l_gen)
+    a.set_fitness(None)
     b = ind_b.copy()
-    a.set_genome_from_raw(son_r_gen)
+    b.set_genome_from_raw(son_r_gen)
+    b.set_fitness(None)
 
     return a, b
 
@@ -424,7 +428,9 @@ def crossover_one_point(task, ind_a, ind_b, args):
     # Se instancian los hijos
     a = ind_a.copy()
     a.set_genome_from_raw(son_l_gen)
+    a.set_fitness(None)
     b = ind_b.copy()
-    a.set_genome_from_raw(son_r_gen)
+    b.set_genome_from_raw(son_r_gen)
+    b.set_fitness(None)
 
     return a, b

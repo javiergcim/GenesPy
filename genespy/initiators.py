@@ -83,16 +83,15 @@ def init_binary_pop(n, structure):
         structure (tuple): Un arreglo que especifica cómo se codificarán las
             variables en el genoma. Para cada variavle hay un elemento. A su
             vez, cada elemento posee otros tres, que indicarán, en este
-            orden: bit de signo, bit de parte entera, bits de mantisa.
+            orden: bit de signo, bits de parte entera, bits de mantisa.
 
         *Ejemplo*
 
         Dos varables, la primera con bit de signo, diez bits para almacenar la
         parte entera, y cinco para la parte decimal. La segunda variable no
-        posee signo, trece bits para la parte entera y cero para la parte
-        decimal.
+        posee signo, trece bits para la parte entera y cero para la mantisa.
 
-        [[True, 10, 5], [False, 13, 0]]
+        ((True, 10, 5), (False, 13, 0))
 
     Returns:
         list: La población.
@@ -113,7 +112,7 @@ def init_binary_pop(n, structure):
         total_bits += current_bits
         var_bits.append(current_bits)
         sign_bits.append(i[0])
-        precalc.append(1.0 / (2 ** i[2]))
+        precalc.append(1.0 / (2**i[2]))
 
     # Se crean los individuos
     new_pop = []

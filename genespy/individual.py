@@ -180,7 +180,7 @@ class Individual:
         """ Establece el fitness del individuo.
 
         Args:
-            fit (list): Un arreglo con el fitness del individuo.
+            fit (list|None): Un arreglo con el fitness del individuo.
 
         """
 

@@ -34,7 +34,7 @@ def select_vasconcelos(task, args):
 
     cp = args['cp']
     mayor = task.get_size() - 1
-    max_minor = floor(task.get_size() / 2) + 1
+    max_minor = floor(mayor / 2.0) + 1
     population = task.get_population()
 
     # Hacemos la selección (mejor contra peor)
