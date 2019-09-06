@@ -32,11 +32,11 @@ def opti_func():
 
     n = 500  # Individuos
     gen = 200  # Generaciones máximas
-    duration = 10.0  # Duración en segundos
     cp = 0.3  # Probabilidad de cruza
     max_mp = 0.5  # Máxima probabilidad de mutación
     cycle_mp = 100.0  # Generaciónes por ciclo de mutación
     elitism = 1.0  # Porcentaje de elitismo
+    duration = float('inf')  # Duración máxima en segundos
     verbose = 10  # Frecuencia de reporte
 
     # Se crea la tarea
