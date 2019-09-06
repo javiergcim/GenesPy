@@ -33,6 +33,8 @@ def mutate_swap(task, individual, args):
 
     """
 
+    changed = False
+
     mp = args['mp']
     gen = individual.get_raw_genome()
     max_i = len(gen)
@@ -47,7 +49,10 @@ def mutate_swap(task, individual, args):
 
         j += geometric_dist(mp)
 
-    individual.set_fitness(None)
+        changed = True
+
+    if changed:
+        individual.set_fitness(None)
 
 
 def mutate_flip(task, individual, args):
@@ -66,6 +71,8 @@ def mutate_flip(task, individual, args):
 
     """
 
+    changed = False
+
     mp = args['mp']
     gen = individual.get_raw_genome()
     max_i = len(gen)
@@ -79,7 +86,10 @@ def mutate_flip(task, individual, args):
 
         j += geometric_dist(mp)
 
-    individual.set_fitness(None)
+        changed = True
+
+    if changed:
+        individual.set_fitness(None)
 
 
 def mutate_insert(task, individual, args):
@@ -96,6 +106,8 @@ def mutate_insert(task, individual, args):
 
     """
 
+    changed = True
+
     gen = individual.get_raw_genome()
 
     max_i = len(gen)
@@ -104,6 +116,8 @@ def mutate_insert(task, individual, args):
 
     if b < a:
         a, b = b, a
+    elif b == a:
+        changed = False
 
     slice_a = gen[:a]
     slice_b = gen[a:b]
@@ -112,16 +126,26 @@ def mutate_insert(task, individual, args):
     slice_a.extend(slice_c)
     slice_a.extend(slice_b)
 
-    individual.set_genome_from_raw(slice_a)
-    individual.set_fitness(None)
+    if changed:
+        individual.set_genome_from_raw(slice_a)
+        individual.set_fitness(None)
 
 
 def mutate_multiple(task, individual, args):
     """ Muta el individuo proporcionado in situ, elige al azar un operador de
-    mutación de los especificados en la inicialización. Los parámetros de para
+    mutación de los especificados en la inicialización. Los parámetros para
     cada operador de mutación se especificaron en la inicialización.
 
-    Establece en *None* el fitness del individuo mutado.
+    Args:
+        task (Task): Una referencia a la tarea asociada al elemento.
+        individual (Individual): Un individuo.
+        args (dict): Un diccionario con los parámetros propios de este método.
+            La llave 'operators' será arreglo con las funciones de mutación.
+            El resto de llaves se corresponderán con los parámetros dados a las
+            funciones de mutación.
+
+            Si más de un operador de mutación utilizan un argumento con el mismo
+            nombre, será compartido entre ellos.
 
     """
 
@@ -145,6 +169,8 @@ def mutate_normal(task, individual, args):
 
     """
 
+    changed = False
+
     mp = args['mp']
     sd = args['sd']
     integer = args['integer']
@@ -158,4 +184,7 @@ def mutate_normal(task, individual, args):
 
         j += geometric_dist(mp)
 
-    individual.set_fitness(None)
+        changed = True
+
+    if changed:
+        individual.set_fitness(None)

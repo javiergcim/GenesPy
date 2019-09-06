@@ -25,36 +25,44 @@ def beale(task, args):
            (2.625 - args[0] + args[0]*args[1]**3.0)**2.0
 
 
-n = 500  # Individuos
-gen = 10000  # Generaciones máximas
-duration = 10.0  # Duración en segundos
-cp = 0.3  # Probabilidad de cruza
-max_mp = 0.5  # Máxima probabilidad de mutación
-cycle_mp = 100.0  # Generaciónes por ciclo de mutación
-elitism = 1.0  # Porcentaje de elitismo
-verbose = 100
+def opti_func():
+    """ Ésta función prepara la tarea y ejecuta el algorítmo genético.
 
-# Se crea la tarea
-task = Task()
+    """
 
-# Se establece población
-the_pop = init_float_pop(n, 2, -10.0, 10)
-task.set_population(the_pop)
+    n = 500  # Individuos
+    gen = 200  # Generaciones máximas
+    duration = 10.0  # Duración en segundos
+    cp = 0.3  # Probabilidad de cruza
+    max_mp = 0.5  # Máxima probabilidad de mutación
+    cycle_mp = 100.0  # Generaciónes por ciclo de mutación
+    elitism = 1.0  # Porcentaje de elitismo
+    verbose = 10  # Frecuencia de reporte
 
-# Se establecen funciones de cruza, mutacion y selección
-task.set_evals([beale], [-1.0])
-task.set_mutator(mutate_normal, {'mp': max_mp, 'sd': 1.0, 'integer': False})
-task.set_crossover(crossover_one_point)
-task.set_selector(select_vasconcelos, {'cp': cp})
+    # Se crea la tarea
+    task = Task()
 
-# Inicia el algoritmo
-sol = cos_mutation_ga(task,
-                      max_mp,
-                      cycle_mp,
-                      elitism,
-                      duration,
-                      gen,
-                      verbose)
+    # Se establece población
+    the_pop = init_float_pop(n, 2, -5.0, 5)
+    task.set_population(the_pop)
 
-print(sol)
-print(sol.get_genome())
+    # Se establecen funciones de cruza, mutacion y selección
+    task.set_evals([beale], [-1.0])
+    task.set_mutator(mutate_normal, {'mp': max_mp, 'sd': 0.5, 'integer': False})
+    task.set_crossover(crossover_one_point)
+    task.set_selector(select_vasconcelos, {'cp': cp})
+
+    # Inicia el algoritmo
+    sol = cos_mutation_ga(task,
+                          max_mp,
+                          cycle_mp,
+                          elitism,
+                          duration,
+                          gen,
+                          verbose)
+
+    print(sol)
+    print('Genome only:', sol.get_genome())
+
+
+opti_func()
