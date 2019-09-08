@@ -9,8 +9,8 @@ from genespy.algorithms import cos_mutation_ga
 from genespy.initiators import init_permutation_pop
 
 
-def opti_func():
-    """ Ésta función prepara la tarea y ejecuta el algorítmo genético.
+def my_example():
+    """ Esta función prepara la tarea y ejecuta el algoritmo genético.
 
     """
 
@@ -22,7 +22,7 @@ def opti_func():
         {'id': 'triunfo', 'latitude': 19.37575146, 'longitude': -99.117958},
         {'id': 'lomas', 'latitude': 19.422109, 'longitude': -99.213864},
         {'id': 'arigola', 'latitude': 19.422109, 'longitude': -99.213864},
-        {'id': 'indios verdes', 'latitude': 19.489285, 'longitude': -99.110390},
+        {'id': 'indios', 'latitude': 19.489285, 'longitude': -99.110390},
         {'id': 'loma linda', 'latitude': 19.459531, 'longitude': -99.244397},
         {'id': 'juarez', 'latitude': 19.429314, 'longitude': -99.153360},
         {'id': 'merced', 'latitude': 19.425649, 'longitude': -99.127991},
@@ -36,8 +36,8 @@ def opti_func():
         {'id': 'popular', 'latitude': 19.367837, 'longitude': -99.119803},
         {'id': 'mixcoac', 'latitude': 19.375162, 'longitude': -99.183480},
         {'id': 'hipódromo', 'latitude': 19.410012, 'longitude': -99.173479},
-        {'id': 'zona escolar', 'latitude': 19.540970, 'longitude': -99.150340},
-        {'id': 'valle dorado', 'latitude': 19.546474, 'longitude': -99.216605},
+        {'id': 'escolar', 'latitude': 19.540970, 'longitude': -99.150340},
+        {'id': 'dorado', 'latitude': 19.546474, 'longitude': -99.216605},
         {'id': 'nativitas', 'latitude': 19.381869, 'longitude': -99.135589},
         {'id': 'ajusco', 'latitude': 19.317729, 'longitude': -99.159960},
         {'id': 'portales', 'latitude': 19.364219, 'longitude': -99.144475},
@@ -66,13 +66,13 @@ def opti_func():
     # Se establecen datos
     task.set_data(data)
 
-    # Se establece población (start_id no debe estar en el genoma)
+    # Se establecen locaciones que aparecen en genomas (todos menos el inicial)
     genome_locations = []
-
     for key in range(len(locations)):
         if locations[key]['id'] != start_id:
             genome_locations.append(locations[key]['id'])
 
+    # Se crea y asigna la población inicial
     the_pop = init_permutation_pop(n, genome_locations)
     task.set_population(the_pop)
 
@@ -96,4 +96,4 @@ def opti_func():
     print('Genome only:', sol.get_genome())
 
 
-opti_func()
+my_example()

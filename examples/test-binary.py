@@ -8,25 +8,25 @@ from genespy.algorithms import cos_mutation_ga
 from genespy.initiators import init_binary_pop
 
 
-def beale(task, args):
+def example_evaluation_function(genome, data):
     """ Función de evaluación de ejemplo.
 
     Args:
-        task (Task): La tarea asociada al problema.
-        args (list): Un arreglo con los argumentos codificados en el genoma.
+        genome (list): Un arreglo con los argumentos codificados en el genoma.
+        data (object): Un objeto arbitrario asociado al problema.
 
     Returns:
         float: El fitness asociado a los argumentos proporcionados.
 
     """
 
-    return (1.5 - args[0] + args[0]*args[1])**2.0 +\
-           (2.25 - args[0] + args[0]*args[1]**2.0)**2.0 +\
-           (2.625 - args[0] + args[0]*args[1]**3.0)**2.0
+    return (1.5 - genome[0] + genome[0] * genome[1]) ** 2.0 + \
+           (2.25 - genome[0] + genome[0] * genome[1] ** 2.0) ** 2.0 + \
+           (2.625 - genome[0] + genome[0] * genome[1] ** 3.0) ** 2.0
 
 
-def opti_func():
-    """ Ésta función prepara la tarea y ejecuta el algorítmo genético.
+def my_example():
+    """ Esta función prepara la tarea y ejecuta el algoritmo genético.
 
     """
 
@@ -42,14 +42,14 @@ def opti_func():
     # Se crea la tarea
     task = Task()
 
-    # Se establece población
+    # Se crea y asigna la población inicial
     struct = ((True, 5, 5),  # x
               (True, 5, 5))  # y
     the_pop = init_binary_pop(n, struct)
     task.set_population(the_pop)
 
     # Se establecen funciones de cruza, mutacion y selección
-    task.set_evals([beale], [-1.0])
+    task.set_evals([example_evaluation_function], [-1.0])
     task.set_mutator(mutate_flip, {'mp': max_mp})
     task.set_crossover(crossover_one_point)
     task.set_selector(select_vasconcelos, {'cp': cp})
@@ -67,4 +67,4 @@ def opti_func():
     print('Friendly genome:', sol.get_genome())
 
 
-opti_func()
+my_example()

@@ -546,6 +546,8 @@ class Task:
         
         """
 
+        data = self._data
+
         for son in self._population:  # Para cada individuo
             if son.get_fitness() is None:  # No tiene fitness calculado
                 fit = []
@@ -554,11 +556,11 @@ class Task:
                 # Calculamos las restricciones
                 failed = 0
                 for constrain in self._constraints:
-                    failed += constrain(self, son_genome)
+                    failed += constrain(son_genome, data)
 
                 if not failed:  # Calculamos objetivos si cumple restric.
                     for objective in self._objectives:
-                        fit.append(objective(self, son_genome))
+                        fit.append(objective(son_genome, data))
                 else:  # Aplicamos penalización si no cumple restricciones
                     for penalty in self._penalties:
                         fit.append(penalty * failed)

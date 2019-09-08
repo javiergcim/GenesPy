@@ -193,19 +193,19 @@ def create_distance_matrix(points):
     return matrix
 
 
-def travel_cost(task, genome):
+def travel_cost(genome, data):
     """ Costo de un viaje del tipo *agente viajero*.
 
     Args:
-        task (Task): Un objeto Task asociado al genoma.
         genome (list): El genoma a evaluar.
+        data (object): Un objeto arbitrario.
+
 
     Returns:
         float: La evaluación del individuo.
 
     """
 
-    data = task.get_data()
     matrix = data['cost']
     cost = matrix[data['start']][genome[0]]
 

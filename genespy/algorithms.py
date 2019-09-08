@@ -22,15 +22,15 @@ def general_ga(task,
                sec,
                gen=float('inf'),
                verbose=float('inf')):
-    """ Ejecuta una algorítmo genético genérico, con posibilidad de elitismo.
+    """ Ejecuta una algoritmo genético genérico, con posibilidad de elitismo.
 
     Args:
         task (Task): Un objeto *Task* con los parámetros y la población
-            requerida para la ejecución del algorítmo.
+            requerida para la ejecución del algoritmo.
         elitism (float): Porcentaje de individuos que se guardarán como elite
             para la siguiente generación.
         sec (float): Segundos que aproximadamente correrá el algoritmo.
-        gen (int): Generaciones que se ejecutara el algorítmo genético.
+        gen (int): Generaciones que se ejecutara el algoritmo genético.
         verbose (int): Indica cada cuantas generaciones se reportan avances.
 
     Returns:
@@ -87,20 +87,20 @@ def cos_mutation_ga(task,
                     sec,
                     gen=float('inf'),
                     verbose=float('inf')):
-    """ Ejecuta una algorítmo genético genérico, con posibilidad de elitismo,
+    """ Ejecuta una algoritmo genético genérico, con posibilidad de elitismo,
     que genera una probabilidad de mutación *mp* variable a lo largo de las
-    generaciones, en función de una función coseno.
+    generaciones, de acuerdo a una función coseno.
 
     Args:
         task (Task): Un objeto *Task* con los parámetros y la población
-            requerida para la ejecución del algorítmo.
+            requerida para la ejecución del algoritmo.
         max_mp (float): Probabilidad máxima de mutación.
         cycle_mp (float): Indica cuantas generaciones dura un ciclo en el
             cambio de valor de la propabilidad de mutación.
         elitism (float): Porcentaje de individuos que se guardarán como elite
             para la siguiente generación.
         sec (float): Segundos que aproximadamente correrá el algoritmo.
-        gen (int): Generaciones que se ejecutara el algorítmo genético.
+        gen (int): Generaciones que se ejecutará el algoritmo genético.
         verbose (int): Indica cada cuantas generaciones se reportan avances.
 
     Returns:
