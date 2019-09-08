@@ -13,7 +13,7 @@ without any external dependence. Standard Python only.
    * An arbitrary object (which is defined by you, as complementary data to
      evaluate the individuals). By default, this object is *None*.
 
-  The function must return a floating value as *fitness* of the individual.
+   The function must return a floating value as *fitness* of the individual.
 
 3. Create a population and assign to the *Task* object.
 
