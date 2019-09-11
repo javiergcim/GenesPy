@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with GenesPy. If not, see <http://www.gnu.org/licenses/>.
 
-from random import randrange
+from random import randrange, sample
 from copy import copy
 from itertools import cycle
 from .individual import Individual
@@ -400,7 +400,6 @@ def crossover_one_point(task, ind_a, ind_b, args):
     """ Realiza un cruzamiento de dos individuos, mezclando los genomas
     aplicando un corte.
 
-
     Args:
         task (Task): El objeto Task asociado al problema.
         ind_a (Individual): El primer individuo a cruzar.
@@ -415,15 +414,56 @@ def crossover_one_point(task, ind_a, ind_b, args):
     # Elegimos al azar el punto de corte
     gen_a = ind_a.get_raw_genome()
     gen_b = ind_b.get_raw_genome()
-    size = len(gen_a)
 
-    cut_point = randrange(1, size)
+    cut_point = randrange(1, len(gen_a))
 
     son_l_gen = gen_a[:cut_point]
     son_l_gen.extend(gen_b[cut_point:])
 
     son_r_gen = gen_b[:cut_point]
     son_r_gen.extend(gen_a[cut_point:])
+
+    # Se instancian los hijos
+    a = ind_a.copy()
+    a.set_genome_from_raw(son_l_gen)
+    a.set_fitness(None)
+    b = ind_b.copy()
+    b.set_genome_from_raw(son_r_gen)
+    b.set_fitness(None)
+
+    return a, b
+
+
+def crossover_two_points(task, ind_a, ind_b, args):
+    """ Realiza un cruzamiento de dos individuos, mezclando los genomas
+    aplicando dos cortes.
+
+    Args:
+        task (Task): El objeto Task asociado al problema.
+        ind_a (Individual): El primer individuo a cruzar.
+        ind_b (Individual): El segundo individuo a cruzar.
+        args (dict): Los parámetros propios del método.
+
+    Returns:
+        tuple: Un arreglo con dos individuos descendientes.
+
+    """
+
+    gen_a = ind_a.get_raw_genome()
+    gen_b = ind_b.get_raw_genome()
+
+    cut_a, cut_b = sample(range(len(gen_a)), 2)
+
+    if cut_a > cut_b:
+        cut_a, cut_b = cut_b, cut_a
+
+    son_l_gen = gen_a[:cut_a]
+    son_l_gen.extend(gen_b[cut_a:cut_b])
+    son_l_gen.extend(gen_a[cut_b:])
+
+    son_r_gen = gen_b[:cut_a]
+    son_r_gen.extend(gen_a[cut_a:cut_b])
+    son_r_gen.extend(gen_b[cut_b:])
 
     # Se instancian los hijos
     a = ind_a.copy()

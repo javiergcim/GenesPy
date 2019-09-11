@@ -408,7 +408,7 @@ class Task:
                 cumplirse la condición, y 1 en caso contrario.
             max_penalties: (list): Arreglo con los valores de penalización
                 máxima. Uno para cada función objetivo. Deben existir tantos
-                valores de penalización como funciones objetivo la tarea.
+                valores de penalización como funciones objetivo en la tarea.
 
         """
 
@@ -416,13 +416,12 @@ class Task:
         n_constraints = len(constraints)
 
         try:
-            if n_penalties == n_constraints and \
-                    n_penalties == len(self._objectives):
+            if n_penalties == len(self._objectives):
                 self._constraints = tuple(constraints)
                 self._penalties =\
                     tuple(penalty / n_constraints for penalty in max_penalties)
             else:
-                raise ValueError('max_penalities must have as many elements' +
+                raise ValueError('max_penalities must have as many elements ' +
                                  'as objectives have the task')
         except ValueError as error:
             print(error.args[0])
