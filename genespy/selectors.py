@@ -73,6 +73,7 @@ def select_tournament(task, args):
     population = task.get_population()
     p_type = task.get_obj_factors(obj_index)
     matchs = args['matchs']
+    childs = {}
 
     for pair in range(matchs):
         # Elegimos padres
@@ -96,7 +97,12 @@ def select_tournament(task, args):
 
             parents_index.append(best_i)
 
-        childs = task.apply_crossover(population[parents_index[0]],
-                                      population[parents_index[1]])
-        population[parents_index[0]] = childs[0]
-        population[parents_index[1]] = childs[1]
+        son_a, son_b = task.apply_crossover(population[parents_index[0]],
+                                            population[parents_index[1]])
+
+        childs[parents_index[0]] = son_a
+        childs[parents_index[1]] = son_b
+
+    # Se integra toda la descendencia en la población (sustituyen a padres)
+    for index, new_born in childs.items():
+        population[index] = new_born
