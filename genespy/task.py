@@ -190,17 +190,10 @@ class Task:
 
         diff = n - current_size
 
-        # Se debe truncar o dejar igual. Elegimos al azar (sin sesgo)
+        # Se debe truncar o dejar igual
         if diff <= 0:
             re_evaluate = False
-            selected = [0]
-            selected.extend(sorted(sample(range(1, current_size),
-                                     n)))  # Orden original
-            reduced_pop = []
-            for i in selected:
-                reduced_pop.append(pop[i])
-
-            self.replace_population(reduced_pop)
+            self._population = pop[:n]
 
         else:  # Se deben añadir elementos
             re_evaluate = True
