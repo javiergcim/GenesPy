@@ -14,7 +14,7 @@
 # License along with GenesPy. If not, see <http://www.gnu.org/licenses/>.
 
 from copy import copy
-from random import randrange
+from random import randrange, sample
 from .individual import Individual
 
 
@@ -145,8 +145,7 @@ class Task:
         """
 
         if first:
-            pop.extend(self._population)
-            self._population = pop
+            self._population = pop + self._population
         else:
             self._population.extend(pop)
 
@@ -180,8 +179,8 @@ class Task:
 
         """
 
-        current_size = len(self._population)
-        max_index = current_size - 1
+        pop = self._population
+        current_size = len(pop)
 
         # Se ajusta o no el atributo _desired_size, y se establece n final
         if n is None:
@@ -189,28 +188,36 @@ class Task:
         else:
             self._desired_size = n
 
-        diff = n - max_index - 1
+        diff = n - current_size
 
-        # Se debe truncar o dejar igual
+        # Se debe truncar o dejar igual. Elegimos al azar (sin sesgo)
         if diff <= 0:
-            change = False
-            self._population = self._population[:n]
+            re_evaluate = False
+            selected = sorted(sample(range(1, current_size),
+                                     n))  # Orden original
+            reduced_pop = []
+            for i in selected:
+                reduced_pop.append(pop[i])
+
+            self.replace_population(reduced_pop)
+
         else:  # Se deben añadir elementos
-            change = True
+            re_evaluate = True
+            mutator_args = self._mutator_args
             while diff:
                 # Se elige un elemento al azar de la población, y se clona
                 index = randrange(current_size)
-                born = copy(self._population[index])
+                born = pop[index].copy()
 
                 # Se crea nuevo genoma de mutación
-                self._mutator(self, born, self._mutator_args)
+                self._mutator(self, born, mutator_args)
 
                 # Se añade a la población
-                self._population.append(born)
+                pop.append(born)
 
                 diff -= 1
 
-        return change
+        return re_evaluate
 
     def remove_duplicate_fitness(self):
         """
