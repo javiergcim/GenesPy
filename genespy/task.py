@@ -193,8 +193,9 @@ class Task:
         # Se debe truncar o dejar igual. Elegimos al azar (sin sesgo)
         if diff <= 0:
             re_evaluate = False
-            selected = sorted(sample(range(1, current_size),
-                                     n))  # Orden original
+            selected = [0]
+            selected.extend(sorted(sample(range(1, current_size),
+                                     n)))  # Orden original
             reduced_pop = []
             for i in selected:
                 reduced_pop.append(pop[i])
