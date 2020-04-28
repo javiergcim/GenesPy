@@ -66,6 +66,8 @@ def gauss_dist(mean, sd, integer):
 
 def dec_to_bin(num, sign, i_dig, d_dig):
     """ Convierte un número flotante a una expresión binaria de punto fijo.
+    Se buscará encontrar la expresión binaria más cercana posible al número,
+    aún si está fuera de rango.
 
     Args:
         num (float): El número a convertir.
@@ -78,36 +80,36 @@ def dec_to_bin(num, sign, i_dig, d_dig):
 
     """
 
-    if num >= 0:
-        if sign:
+    max_abs_value = (2**i_dig - 1) + (2**d_dig - 1) / 2**d_dig
+
+    # Se establece bit se signo (si existe)
+    if sign:
+        if num < 0.0:
+            binary = bytearray(b'1')
+        else:
             binary = bytearray(b'0')
-        else:
-            binary = bytearray()
-        numint = floor(num)
-        numdec = num - numint
-    elif num < 0 and sign:
-        binary = bytearray(b'1')
-        numint = -ceil(num)
-        numdec = -(num + numint)
     else:
-        raise ValueError('Invalid number or out of range value')
+        binary = bytearray(b'')
 
-    binint = bytearray('{0:b}'.format(numint).zfill(i_dig), 'ascii')
+    if num < 0 and not sign:  # Debe ser cero
+        binary.extend(bytearray(b'0') * (i_dig + d_dig))
+    elif abs(num) >= max_abs_value:
+        binary.extend(bytearray(b'1') * (i_dig + d_dig))
+    else:
+        abs_num = abs(num)
+        numint = floor(abs_num)
+        numdec = abs_num - numint
 
-    if len(binint) > i_dig:
-        raise ValueError('Out of range value!')
+        # Se crea la parte entera
+        binint = bytearray('{0:b}'.format(numint).zfill(i_dig), 'ascii')
 
-    bindec = bytearray()
-    for i in range(-1, -d_dig - 1, -1):
-        n = 2.0**i
-        if numdec - n < 0.0:
-            bindec.append(48)  # Se agrega un '0'
-        else:
-            bindec.append(49)  # Se agrega un '1'
-            numdec -= n
+        # Se crea la parte decimal
+        numdec = floor(numdec * 2**d_dig)
+        bindec = bytearray('{0:b}'.format(numdec).zfill(d_dig), 'ascii')
 
-    binary.extend(binint)
-    binary.extend(bindec)
+        # Se arma la adena final
+        binary.extend(binint)
+        binary.extend(bindec)
 
     return binary
 

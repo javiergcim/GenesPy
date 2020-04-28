@@ -100,10 +100,8 @@ class BinaryInd(Individual):
 
         """
 
-        new_raw = []
+        new_raw = bytearray()
         for num, params in zip(genome, self._struct):
-            new_raw.append(dec_to_bin(num, params[0], params[1], params[2]))
+            new_raw.extend(dec_to_bin(num, params[0], params[1], params[2]))
 
-        raw = bytearray()
-        raw.join(new_raw)
         self._genome = new_raw
