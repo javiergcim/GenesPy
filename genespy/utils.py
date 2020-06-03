@@ -107,7 +107,7 @@ def dec_to_bin(num, sign, i_dig, d_dig):
         numdec = floor(numdec * 2**d_dig)
         bindec = bytearray('{0:b}'.format(numdec).zfill(d_dig), 'ascii')
 
-        # Se arma la adena final
+        # Se arma la cadena final
         binary.extend(binint)
         binary.extend(bindec)
 
