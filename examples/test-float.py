@@ -43,6 +43,7 @@ def my_example():
     task = Task()
 
     # Se crea y asigna la población inicial
+    # (individuals, number of genes, min random value, max random value)
     the_pop = init_float_pop(n, 2, -5.0, 5)
     task.set_population(the_pop)
 

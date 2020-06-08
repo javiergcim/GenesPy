@@ -43,6 +43,7 @@ def my_example():
     task = Task()
 
     # Se crea y asigna la población inicial
+    # Two individuals [sign bit(bool), integer bits (int), matissa bits (int)]
     struct = ((True, 5, 5),  # x
               (True, 5, 5))  # y
     the_pop = init_binary_pop(n, struct)
