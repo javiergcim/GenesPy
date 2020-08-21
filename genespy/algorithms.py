@@ -21,7 +21,8 @@ def general_ga(task,
                elitism,
                sec,
                gen=float('inf'),
-               verbose=float('inf')):
+               verbose=float('inf'),
+               report=None):
     """ Ejecuta una algoritmo genético genérico, con posibilidad de elitismo.
 
     Args:
@@ -32,12 +33,17 @@ def general_ga(task,
         sec (float): Segundos que aproximadamente correrá el algoritmo.
         gen (int): Generaciones que se ejecutara el algoritmo genético.
         verbose (int): Indica cada cuantas generaciones se reportan avances.
+        report (function|None): Función de reporte. Recibirá la generación y
+            mejor fitness de la iteración actual, cada tantas generaciones como
+            se especifique según *verbose*.
 
     Returns:
         Individual: El individuo con mejor aptitud al momento de finalizar la
             corrida.
 
     """
+
+    inf = float('inf')
 
     # Se inicia la toma de tiempo
     start_time = time()
@@ -62,12 +68,21 @@ def general_ga(task,
             task.order_population()
 
         # Se verifica si se debe imprimir
-        if verbose != float('inf'):
+        if verbose != inf:
             if g % verbose == 0:
-                print('Generation:', g)
-                print('Best fitness:',
-                      task.get_individual(0).get_fitness(),
-                      '\n')
+                if report is not None:
+                    report(
+                        g,
+                        task.get_individual(0).get_fitness(),
+                        task.get_individual(0).get_genome()
+                    )
+                else:
+                    print('Generation:', g)
+                    print(
+                        'Best fitness:',
+                        task.get_individual(0).get_fitness(),
+                        '\n'
+                    )
 
         # Verificamos si se ha cumplido el tiempo
         current_time = time() - start_time
@@ -86,7 +101,8 @@ def cos_mutation_ga(task,
                     elitism,
                     sec,
                     gen=float('inf'),
-                    verbose=float('inf')):
+                    verbose=float('inf'),
+                    report=None):
     """ Ejecuta una algoritmo genético genérico, con posibilidad de elitismo,
     que genera una probabilidad de mutación *mp* variable a lo largo de las
     generaciones, de acuerdo a una función coseno.
@@ -102,6 +118,9 @@ def cos_mutation_ga(task,
         sec (float): Segundos que aproximadamente correrá el algoritmo.
         gen (int): Generaciones que se ejecutará el algoritmo genético.
         verbose (int): Indica cada cuantas generaciones se reportan avances.
+        report (function|None): Función de reporte. Recibirá la generación y
+            mejor fitness de la iteración actual, cada tantas generaciones como
+            se especifique según *verbose*.
 
     Returns:
         Individual: El individuo con mejor aptitud al momento de finalizar la
@@ -148,10 +167,19 @@ def cos_mutation_ga(task,
         # Se verifica si se debe imprimir
         if verbose != inf:
             if g % verbose == 0:
-                print('Generation:', g)
-                print('Best fitness:',
-                      task.get_individual(0).get_fitness(),
-                      '\n')
+                if report is not None:
+                    report(
+                        g,
+                        task.get_individual(0).get_fitness(),
+                        task.get_individual(0).get_genome()
+                    )
+                else:
+                    print('Generation:', g)
+                    print(
+                        'Best fitness:',
+                        task.get_individual(0).get_fitness(),
+                        '\n'
+                    )
 
         # Verificamos si se ha cumplido el tiempo
         current_time = time() - start_time

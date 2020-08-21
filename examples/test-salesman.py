@@ -52,7 +52,7 @@ def my_example():
             'circuit': False,  # Indica si el viaje será un circuito
             'cost': create_distance_matrix(locations)}  # Matriz de costos
     n = 500  # Individuos
-    gen = 300  # Generaciones máximas
+    gen = 500  # Generaciones máximas
     cp = 0.3  # Probabilidad de cruza
     max_mp = 0.1  # Máxima probabilidad de mutación
     cycle_mp = 100.0  # Generaciónes por ciclo de mutación

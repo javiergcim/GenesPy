@@ -31,7 +31,7 @@ def my_example():
     """
 
     n = 500  # Individuos
-    gen = 200  # Generaciones máximas
+    gen = 400  # Generaciones máximas
     cp = 0.3  # Probabilidad de cruza
     max_mp = 0.5  # Máxima probabilidad de mutación
     cycle_mp = 100.0  # Generaciónes por ciclo de mutación
