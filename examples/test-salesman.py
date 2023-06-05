@@ -51,14 +51,14 @@ def my_example():
     data = {'start': start_id,  # Punto de partida del viaje
             'circuit': False,  # Indica si el viaje será un circuito
             'cost': create_distance_matrix(locations)}  # Matriz de costos
-    n = 500  # Individuos
-    gen = 500  # Generaciones máximas
+    n = 1000  # Individuos
+    gen = 30  # Generaciones máximas
     cp = 0.3  # Probabilidad de cruza
-    max_mp = 0.1  # Máxima probabilidad de mutación
+    max_mp = 0.01  # Máxima probabilidad de mutación
     cycle_mp = 100.0  # Generaciónes por ciclo de mutación
     elitism = 1.0  # Porcentaje de elitismo
     duration = float('inf')  # Duración máxima en segundos
-    verbose = 10  # Frecuencia de reporte
+    verbose = 2  # Frecuencia de reporte
 
     # Se crea la tarea
     task = Task()

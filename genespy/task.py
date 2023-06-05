@@ -587,6 +587,11 @@ class Task:
     def apply_crossover(self, ind_a, ind_b):
         """ Aplica el cruzamiento.
 
+        Args:
+            ind_a (object): Primer individuo.
+            ind_b (object): Segundo individuo.
+
+
         Returns:
             tuple: Una tupla con los dos descendientes.
 

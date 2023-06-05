@@ -113,6 +113,24 @@ def dec_to_bin(num, sign, i_dig, d_dig):
 
     return binary
 
+def euclidean_distance(a, b):
+    """ Calcula la distancia euclidea entre dos puntos.
+    Args:
+        a (iterable): Coordenadas del primer punto.
+        b (iterable): Coordenadas del segundo punto.
+
+    Returns:
+    
+        (float) La distancia euclidea entre ambos puntos.
+
+    """
+    squares = 0
+    for i in range(len(a)):
+        squares += (a[i] - b[i]) ** 2
+    
+    distance = math.sqrt(squares)
+
+    return distance
 
 def haversine_distance(lat_from,
                        long_from,
@@ -149,7 +167,7 @@ def haversine_distance(lat_from,
     return angle * sphere_radius
 
 
-def create_distance_matrix(points):
+def create_distance_matrix(points, euclidean = False):
     """ Crea la matriz de distancias entre un conjunto de puntos, dados de la
     forma:
 
@@ -157,6 +175,7 @@ def create_distance_matrix(points):
 
     Args:
         points (list): Un arreglo con los puntos a calcular sus distancias.
+        euclidean (bool): Indica si la distancia se calculará de forma cartesiana.
 
     Returns:
         list: Una matriz cuadrada con las distancias entre los puntos.
@@ -185,11 +204,18 @@ def create_distance_matrix(points):
                 matrix[key_from][key_to] = 0.0
                 break
 
-            matrix[key_from][key_to] = \
-                haversine_distance(points[points_map[key_from]]['latitude'],
-                                   points[points_map[key_from]]['longitude'],
-                                   points[points_map[key_to]]['latitude'],
-                                   points[points_map[key_to]]['longitude'])
+            if euclidean:
+                matrix[key_from][key_to] = euclidean_distance(
+                    points[points_map[key_from]]['coords'],
+                    points[points_map[key_to]]['coords']
+                )
+            else:
+                matrix[key_from][key_to] = \
+                    haversine_distance(points[points_map[key_from]]['latitude'],
+                                    points[points_map[key_from]]['longitude'],
+                                    points[points_map[key_to]]['latitude'],
+                                    points[points_map[key_to]]['longitude'])
+
             matrix[key_to][key_from] = matrix[key_from][key_to]
 
     return matrix
